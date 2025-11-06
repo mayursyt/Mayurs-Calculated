@@ -13,11 +13,7 @@ body::before {
   backdrop-filter: blur(6px) saturate(120%);
   animation: waterMove 10s ease-in-out infinite; pointer-events:none;
 }
-@keyframes waterMove {
-  0% {transform: translateY(0px); opacity:1;}
-  50% {transform: translateY(-25px) scale(1.01); opacity:0.95;}
-  100% {transform: translateY(0px); opacity:1;}
-}
+@keyframes waterMove { 0% {transform: translateY(0px); opacity:1;} 50% {transform: translateY(-25px) scale(1.01); opacity:0.95;} 100% {transform: translateY(0px); opacity:1;} }
 
 .calculator {
   width:360px; padding:22px; border-radius:22px;
@@ -31,9 +27,7 @@ body::before {
   border-radius:14px; padding:12px; font-size:1.6rem; font-weight:600; color:#222; text-align:right;
 }
 
-.buttons {
-  margin-top:15px; display:grid; grid-template-columns:repeat(5,1fr); gap:10px;
-}
+.buttons { margin-top:15px; display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
 button {
   padding:15px; border:none; border-radius:12px; background:rgba(255,255,255,0.6); color:#111; font-weight:600;
   box-shadow:0 5px 12px rgba(0,0,0,0.10); backdrop-filter: blur(10px); cursor:pointer;
@@ -48,25 +42,35 @@ button:hover { background: rgba(255,255,255,0.8); transform:translateY(-3px); }
   transition:height 0.5s ease, padding 0.3s ease; padding:0; box-shadow:0 10px 30px rgba(0,0,0,0.12);
 }
 #historyPanel.show { height:100%; padding:20px; }
-
 #historyHead { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
 #closeHistory { background:none; border:none; font-size:1.5rem; cursor:pointer; }
-
 #historyList { max-height:360px; overflow-y:auto; }
-
 .history-entry { padding:12px; margin:8px 0; border-radius:12px; background: rgba(255,255,255,0.7);
   backdrop-filter: blur(8px); font-size:1rem; box-shadow:0 6px 14px rgba(0,0,0,0.06); }
 
 #notesOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(20px) saturate(180%); display:none; flex-direction:column; justify-content:center; align-items:center; z-index:999; }
+  backdrop-filter: blur(20px) saturate(180%); display:none; flex-direction:column; justify-content:center; align-items:center; z-index:999; overflow-y:auto; padding:20px; }
 #notesOverlay.show { display:flex; }
-
-#noteArea { width:80%; height:150px; padding:10px; background: rgba(255,255,255,0.7); border-radius:14px; border:1px solid rgba(255,255,255,0.7); color:#222; }
+#noteArea { width:80%; height:150px; padding:10px; background: rgba(255,255,255,0.7); border-radius:14px; border:1px solid rgba(255,255,255,0.7); color:#222; margin-bottom:10px; }
 #notesList { display:flex; flex-direction:column; align-items:center; width:100%; }
-
 .note-item { background: rgba(255,255,255,0.7); padding:10px; margin:10px 0; border-radius:12px; width:80%;
   backdrop-filter: blur(10px); color:#222; box-shadow:0 6px 14px rgba(0,0,0,0.06); display:flex; justify-content:space-between; align-items:center; }
 .delete-note { background:none; border:none; font-size:1.1rem; cursor:pointer; }
 .pin-note { background:none; border:none; font-size:1rem; cursor:pointer; margin-right:5px; }
 .note-buttons { margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; }
 .credit-box { margin-top:18px; width:100%; padding:10px; background:rgba(255,255,255,0.35); backdrop-filter:blur(12px); border-radius:14px; text-align:center; font-weight:600; color:#222; box-shadow:0 8px 22px rgba(0,0,0,0.18); }
+
+/* --- Mobile fixes --- */
+@media (max-width:480px){
+  #notesOverlay.show { justify-content:flex-start; align-items:center; }
+  #noteArea { width:95%; height:120px; font-size:0.9rem; }
+  #notesList { width:100%; flex-direction:column; align-items:center; gap:8px; }
+  .note-item { width:95%; flex-direction:column; align-items:flex-start; gap:6px; }
+  .note-item div:last-child { display:flex; gap:8px; justify-content:flex-end; width:100%; }
+  .note-buttons { flex-direction:column; width:100%; }
+  .note-buttons button { width:100%; }
+  #historyPanel.show { height:90%; padding:15px; }
+  #historyList { max-height:60vh; overflow-y:auto; }
+  #display { font-size:1.4rem; height:55px; }
+  .buttons button { padding:12px; font-size:0.95rem; }
+}
