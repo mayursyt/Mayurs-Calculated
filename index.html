@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mayur's Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="calculator">
+  <input type="text" id="display" readonly>
+  <div id="flirty"></div>
+
+  <div class="buttons">
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button onclick="press('/')">÷</button>
+    <button id="micBtn" title="Voice Input">🎤</button>
+
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button onclick="press('*')">×</button>
+    <button onclick="press('0')">0</button>
+
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button onclick="press('-')">−</button>
+    <button onclick="press('.')">.</button>
+
+    <button onclick="calculate()">=</button>
+    <button onclick="press('+')">+</button>
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="backspace()">⌫</button>
+    <button onclick="toggleHistory()">History</button>
+  </div>
+
+  <div id="historyPanel">
+    <div id="historyHead">
+      <h3>Calculation History</h3>
+      <button id="closeHistory" onclick="toggleHistory()">×</button>
+    </div>
+    <div id="historyList"></div>
+
+    <div class="credit-box">
+      © 2025 Mayur Sonawane. All Rights Reserved.
+    </div>
+  </div>
+</div>
+
+<div id="notesOverlay">
+  <button onclick="closeNotes()">×</button>
+  <h2>Your Secret Notes 💌</h2>
+  <div id="notesList"></div>
+  <textarea id="noteArea" placeholder="Write something special..."></textarea>
+  <div class="note-buttons">
+    <button onclick="saveNote()">💾 Save Note</button>
+    <button onclick="clearNotes()">🧹 Clear All</button>
+    <button onclick="pinAllNotes()">📌 Pin Top</button>
+    <button onclick="setPIN()">🔒 Set/Change PIN</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
