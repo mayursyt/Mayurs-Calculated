@@ -23,6 +23,10 @@ window.calculate = function(){
   try{
     let expression = display.value.replace(/[^0-9+\-*/.]/g,'');
     if(!expression) return;
+
+    // Fix crash if last input is symbol
+    if(/[\+\-\*\/\.]$/.test(expression)) expression = expression.slice(0,-1);
+
     const result = eval(expression);
     display.value=result;
     showFlirty();
@@ -100,6 +104,7 @@ if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
     const filtered=transcript.replace(/[^0-9+\-*/.]/g,'');
     if(filtered) display.value+=filtered;
     micBtn.style.background='rgba(255,255,255,0.6)';
+    recognition.stop(); // FIX speech repeating
   }
 
   recognition.onerror=(event)=>{ console.error(event.error); micBtn.style.background='rgba(255,255,255,0.6)'; }
@@ -113,3 +118,35 @@ document.querySelectorAll('.buttons button').forEach(btn=>{
 
 renderHistory();
 renderNotes();
+
+
+// ==========================
+// BUG FIXED KEYBOARD TYPING
+// ==========================
+document.addEventListener("keydown", (e) => {
+  const numbers = "0123456789";
+  const symbols = "+-*/.";
+
+  if (numbers.includes(e.key)) {
+    display.value += e.key;
+    return;
+  }
+
+  if (symbols.includes(e.key)) {
+    if (!display.value || symbols.includes(display.value.slice(-1))) return;
+    display.value += e.key;
+    return;
+  }
+
+  if (e.key === "Backspace") {
+    display.value = display.value.slice(0, -1);
+  }
+
+  if (e.key === "Enter" || e.key === "=") {
+    window.calculate();
+  }
+
+  if (e.key === "Escape") {
+    display.value = "";
+  }
+});
